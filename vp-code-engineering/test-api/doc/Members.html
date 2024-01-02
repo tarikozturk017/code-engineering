@@ -1,0 +1,181 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>REST API</title>
+<link type="text/css" rel="stylesheet" href="restapi.css">
+<script>
+function copyToClipboard(id) {
+	text = document.getElementById(id).textContent.replace(/\s+/g, " ").trim();;
+	window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+}
+</script>
+</head>
+<body>
+	<header class="company">Test REST API</header>
+	<div class="container">
+		<div class="toc">
+			<div class="toc-top"></div>
+<div class="current item">Members</div>
+<div class="item"><a href="REST_Service.html">REST Service</a></div>
+		</div>
+		<div class="main">
+			<div class="background"></div>
+			<div class="content">
+				<header>Members</header>
+				<div class="basic-info">
+										<div><span>
+<p>
+  <span display="inline !important" float="none" font-style="normal" letter-spacing="0.16px" style="background-color:rgb(241, 241, 241);color:rgb(51, 51, 51);font-weight:400;font-size:16px;font-family:open sans, 宋体, SimSun, sans-serif;text-align:left;" text-indent="0px" text-transform="none" white-space="normal" word-spacing="0px"><font face="open sans, 宋体, SimSun, sans-serif" size="16px" style="color:rgb(51, 51, 51);font-size:16px;">Create 
+  a new member by providing his/her name, address and telephone number. You 
+  will receive an object that holds the name, address, telephone and member ID 
+  of the member.</font></span>
+</p>
+</span>
+</div>
+										<div class="title">Resource URL</div>
+					<div>http://localhost:5000/members</div>
+
+										</div>
+				</div>
+
+				<div class="sidebar">
+					<div class="code-block">
+						<header>Curl Example</header>
+						<a class="copy" href="javascript:copyToClipboard('curl-example')"></a>
+						<code id='curl-example'>
+						$ curl -X POST
+												-d '{"name":"Peter","address":"100, Happy Valley","telephone":"12345678"}'
+												-H 'content-type: application/json' -H 'authorization: Bearer mytoken123' "http://localhost:5000/members"
+						</code>
+					</div>
+				</div>
+
+				<div class="content">
+					<header class="section">Request</header>
+										<div class="description"></div>
+					<div class="image"><img src="img/Members_request.png"></div>
+																		<a name="Member"></a>
+<div class="classname">
+	Member
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>name</td><td>
+				String
+				</td><td><span>
+<span display="inline !important" float="none" font-style="normal" letter-spacing="0.16px" style="background-color:rgb(241, 241, 241);color:rgb(51, 51, 51);font-weight:400;font-size:16px;font-family:open sans, 宋体, SimSun, sans-serif;text-align:left;" text-indent="0px" text-transform="none" white-space="normal" word-spacing="0px"><font face="open sans, 宋体, SimSun, sans-serif" size="16px" style="color:rgb(51, 51, 51);font-size:16px;">The 
+full name of the member.</font></span></span>
+</td>
+		</tr>
+				<tr>
+		<td>address</td><td>
+				String
+				</td><td><span>
+<p>
+  <span display="inline !important" float="none" font-style="normal" letter-spacing="0.16px" style="background-color:rgb(254, 254, 254);color:rgb(51, 51, 51);font-weight:400;font-size:16px;font-family:open sans, 宋体, SimSun, sans-serif;text-align:left;" text-indent="0px" text-transform="none" white-space="normal" word-spacing="0px"><font face="open sans, 宋体, SimSun, sans-serif" size="16px" style="color:rgb(51, 51, 51);font-size:16px;">The 
+  residential address of the member.</font></span>
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>telephone</td><td>
+				String
+				</td><td><span>
+<p>
+  <span display="inline !important" float="none" font-style="normal" letter-spacing="0.16px" style="background-color:rgb(241, 241, 241);color:rgb(51, 51, 51);font-weight:400;font-size:16px;font-family:open sans, 宋体, SimSun, sans-serif;text-align:left;" text-indent="0px" text-transform="none" white-space="normal" word-spacing="0px"><font face="open sans, 宋体, SimSun, sans-serif" size="16px" style="color:rgb(51, 51, 51);font-size:16px;">The 
+  telephone number of the member.</font></span>
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+															</div>
+
+				<div class="sidebar">
+										<div class="code-block">
+						<header>Request Header</header>
+						<a class="copy" href="javascript:copyToClipboard('request-header')"></a>
+						<code id='request-header' class="header">content-type: application/json
+authorization: Bearer mytoken123</code>
+					</div>
+					
+										<div class="code-block">
+						<header>Request Body</header>
+						<a class="copy" href="javascript:copyToClipboard('request-body')"></a>
+						<code id='request-body' class="json">{
+  <span class="key">"name"</span>: <span class="value">"Peter"</span>,
+  <span class="key">"address"</span>: <span class="value">"100, Happy Valley"</span>,
+  <span class="key">"telephone"</span>: <span class="value">"12345678"</span>
+}</code>
+					</div>
+									</div>
+
+				<div class="content">
+																<header class="section">Response
+- Status 200
+</header>
+<div class="description"><span>
+</span>
+</div>
+<div class="image"><img src="img/Members_200_response.png"></div>
+			<a name="MemberID"></a>
+<div class="classname">
+	MemberID
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>value</td><td>
+				String
+				</td><td><span>
+<p>
+  <span display="inline !important" float="none" font-style="normal" letter-spacing="0.16px" style="background-color:rgb(254, 254, 254);color:rgb(115, 124, 133);font-weight:400;font-size:16px;font-family:open sans, 宋体, SimSun, sans-serif;text-align:left;" text-indent="0px" text-transform="none" white-space="normal" word-spacing="0px"><font face="open sans, 宋体, SimSun, sans-serif" size="16px" style="color:rgb(115, 124, 133);font-size:16px;">The 
+  member ID.</font></span>
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+										</div>
+
+				<div class="sidebar">
+										<div class="code-block">
+						<header>Response Header</header>
+						<a class="copy" href="javascript:copyToClipboard('response-header')"></a>
+						<code id='response-header' class="header">content-type: application/json; charset=utf-8
+status: 200 OK
+ratelimit-limit: 1200
+ratelimit-remaining: 1137
+ratelimit-reset: 1415984218</code>
+					</div>
+					
+										<div class="code-block">
+						<header>Response Body</header>
+						<a class="copy" href="javascript:copyToClipboard('response-body')"></a>
+						<code id='response-body' class="json">{
+  <span class="key">"MemberID"</span>: {
+    <span class="key">"value"</span>: <span class="value">"MB-3001"</span>
+  }
+}</code>
+					</div>
+									</div>
+
+				<div class="content" style="clear:both">
+					<footer class="download">For client development, you can download <a href="xml/Members.xml" target="_blank">Members.xml</a></footer>
+					<footer class="powered-by"><a href="http://www.visual-paradigm.com" target="_blank">Powered by Visual Paradigm</a></footer>
+				</div>
+
+				<div style="clear:both"></div>
+		</div>
+	</div>
+</body>
+</html>

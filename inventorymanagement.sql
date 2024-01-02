@@ -1,0 +1,12 @@
+CREATE TABLE Item (ItemID int(10) NOT NULL AUTO_INCREMENT, Name varchar(64) NOT NULL, Description int(255), Quantity int(10) NOT NULL, Price double NOT NULL, SupplierID int(10) NOT NULL, CategoryID int(10) NOT NULL, InventoryInventoryID int(10) NOT NULL, PRIMARY KEY (ItemID));
+CREATE TABLE Supplier (SupplierID int(10) NOT NULL AUTO_INCREMENT, Name varchar(64) NOT NULL, ContactInfo varchar(255), PRIMARY KEY (SupplierID));
+CREATE TABLE Category (CategoryID int(10) NOT NULL AUTO_INCREMENT, Name varchar(32) NOT NULL, PRIMARY KEY (CategoryID));
+CREATE TABLE Inventory (InventoryID int(10) NOT NULL AUTO_INCREMENT, Name varchar(64) NOT NULL, Location varchar(255), OwnerID int(10) NOT NULL, PRIMARY KEY (InventoryID));
+CREATE TABLE `Transaction` (TransactionID int(10) NOT NULL AUTO_INCREMENT, Quantity int(10) NOT NULL, Timestamp timestamp NOT NULL, ItemID int(10) NOT NULL comment 'A transaction involves one item, but an item can be involved in many transactions', InventoryID int(10) NOT NULL, PRIMARY KEY (TransactionID));
+CREATE TABLE Owner (OwnerID int(10) NOT NULL AUTO_INCREMENT, FirstName varchar(32) NOT NULL, LastName varchar(32) NOT NULL, Email varchar(32) NOT NULL, PRIMARY KEY (OwnerID));
+ALTER TABLE Item ADD CONSTRAINT FKItem506810 FOREIGN KEY (SupplierID) REFERENCES Supplier (SupplierID);
+ALTER TABLE Item ADD CONSTRAINT FKItem499873 FOREIGN KEY (CategoryID) REFERENCES Category (CategoryID);
+ALTER TABLE `Transaction` ADD CONSTRAINT FKTransactio185837 FOREIGN KEY (ItemID) REFERENCES Item (ItemID);
+ALTER TABLE Item ADD CONSTRAINT FKItem775791 FOREIGN KEY (InventoryInventoryID) REFERENCES Inventory (InventoryID);
+ALTER TABLE `Transaction` ADD CONSTRAINT FKTransactio533323 FOREIGN KEY (InventoryID) REFERENCES Inventory (InventoryID);
+ALTER TABLE Inventory ADD CONSTRAINT FKInventory829674 FOREIGN KEY (OwnerID) REFERENCES Owner (OwnerID);

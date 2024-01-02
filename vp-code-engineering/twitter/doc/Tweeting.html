@@ -1,0 +1,2146 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>REST API</title>
+<link type="text/css" rel="stylesheet" href="restapi.css">
+<script>
+function copyToClipboard(id) {
+	text = document.getElementById(id).textContent.replace(/\s+/g, " ").trim();;
+	window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+}
+</script>
+</head>
+<body>
+	<header class="company">Twitter</header>
+	<div class="container">
+		<div class="toc">
+			<div class="toc-top"></div>
+<div class="current item">Tweeting</div>
+		</div>
+		<div class="main">
+			<div class="background"></div>
+			<div class="content">
+				<header>Tweeting</header>
+				<div class="basic-info">
+										<div><span>
+<p>
+  Updates the authenticating user's current status, also known as tweeting.
+</p>
+</span>
+</div>
+										<div class="title">Resource URL</div>
+					<div>https://api.twitter.com/1.1/statuses/update</div>
+
+										</div>
+				</div>
+
+				<div class="sidebar">
+					<div class="code-block">
+						<header>Curl Example</header>
+						<a class="copy" href="javascript:copyToClipboard('curl-example')"></a>
+						<code id='curl-example'>
+						$ curl -X POST
+												-d '{"status":"Maybe he'll finally find his keys","inReplyToStatusId":null,"possiblySensitive":false,"lat":37.7821120598956,"longitude":-122.400612831116,"placeId":"df51dec6f4ee2b2c","displayCoordinates":true,"trimUsers":true,"mediaIds":471592142565957632,}'
+												-H 'content-type: application/json' -H 'authorization: Bearer mytoken123' "https://api.twitter.com/1.1/statuses/update"
+						</code>
+					</div>
+				</div>
+
+				<div class="content">
+					<header class="section">Request</header>
+										<div class="description"></div>
+					<div class="image"><img src="img/Tweeting_request.png"></div>
+																		<a name="TweetRequest"></a>
+<div class="classname">
+	TweetRequest
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>status</td><td>
+				String
+				</td><td><span>
+<p>
+  The text of your status update, typically up to 140 characters. URL encode 
+  as necessary. t.co link wrapping may affect character counts.
+</p>
+<p>
+  
+</p>
+<p>
+  There are some special commands in this field to be aware of. For instance, 
+  preceding a message with &quot;D&quot; or &quot;M&quot; and following it with a screen name can 
+  create a direct message to that user if the relationship allows for it.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>inReplyToStatusId</td><td>
+				String
+				</td><td><span>
+<p>
+  The ID of an existing status that the update is in reply to.
+</p>
+<p>
+  
+</p>
+<p>
+  <b>Note:</b> This parameter will be ignored unless the author of the tweet 
+  this parameter references is mentioned within the status text. Therefore, 
+  you must include @username, where username is the author of the referenced 
+  tweet, within the update.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>possiblySensitive</td><td>
+				boolean
+				</td><td><span>
+<p>
+  If you upload Tweet media that might be considered sensitive content such as 
+  nudity, violence, or medical procedures, you should set this value to true. 
+  See Media setting and best practices for more context. Defaults to false.
+</p>
+<p>
+  
+</p>
+<p>
+  Example Values: true
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>lat</td><td>
+				float
+				</td><td><span>
+<p>
+  The latitude of the location this tweet refers to. This parameter will be 
+  ignored unless it is inside the range -90.0 to +90.0 (North is positive) 
+  inclusive. It will also be ignored if there isn't a corresponding long 
+  parameter.
+</p>
+<p>
+  
+</p>
+<p>
+  Example Values: 37.7821120598956
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>longitude</td><td>
+				float
+				</td><td><span>
+<p>
+  The longitude of the location this tweet refers to. The valid ranges for 
+  longitude is -180.0 to +180.0 (East is positive) inclusive. This parameter 
+  will be ignored if outside that range, if it is not a number, if geo_enabled 
+  is disabled, or if there not a corresponding lat parameter.
+</p>
+<p>
+  
+</p>
+<p>
+  Example Values: -122.400612831116
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>placeId</td><td>
+				String
+				</td><td><span>
+<p>
+  A place in the world.
+</p>
+<p>
+  
+</p>
+<p>
+  Example Values: df51dec6f4ee2b2c
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>displayCoordinates</td><td>
+				boolean
+				</td><td><span>
+<p>
+  Whether or not to put a pin on the exact coordinates a tweet has been sent 
+  from.
+</p>
+<p>
+  
+</p>
+<p>
+  Example Values: true
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>trimUser</td><td>
+				boolean
+				</td><td><span>
+<p>
+  When set to either true, t or 1, each tweet returned in a timeline will 
+  include a user object including only the status authors numerical ID. Omit 
+  this parameter to receive the complete user object.
+</p>
+<p>
+  
+</p>
+<p>
+  Example Values: true
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>mediaIds</td><td>
+				long
+				</td><td><span>
+<p>
+  A list of media ids to associate with the Tweet. You may associated up to 4 
+  media to a Tweet. See Uploading Media for further details on uploading media.
+</p>
+<p>
+  
+</p>
+<p>
+  Example Values: 471592142565957632
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+															</div>
+
+				<div class="sidebar">
+										<div class="code-block">
+						<header>Request Header</header>
+						<a class="copy" href="javascript:copyToClipboard('request-header')"></a>
+						<code id='request-header' class="header">content-type: application/json
+authorization: Bearer mytoken123
+</code>
+					</div>
+					
+										<div class="code-block">
+						<header>Request Body</header>
+						<a class="copy" href="javascript:copyToClipboard('request-body')"></a>
+						<code id='request-body' class="json">{
+  <span class="key">"status"</span>: <span class="value">"Maybe he'll finally find his keys"</span>,
+  <span class="key">"inReplyToStatusId"</span>: <span class="value">null</span>,
+  <span class="key">"possiblySensitive"</span>: <span class="value">false</span>,
+  <span class="key">"lat"</span>: <span class="value">37.7821120598956</span>,
+  <span class="key">"longitude"</span>: <span class="value">-122.400612831116</span>,
+  <span class="key">"placeId"</span>: <span class="value">"df51dec6f4ee2b2c"</span>,
+  <span class="key">"displayCoordinates"</span>: <span class="value">true</span>,
+  <span class="key">"trimUsers"</span>: <span class="value">true</span>,
+  <span class="key">"mediaIds"</span>: <span class="value">471592142565957632</span>,
+  
+}</code>
+					</div>
+									</div>
+
+				<div class="content">
+											<header class="section">Response
+</header>
+<div class="description"></div>
+<div class="image"><img src="img/Tweeting_response.png"></div>
+			<a name="Tweet"></a>
+<div class="classname">
+	Tweet
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>createdAt</td><td>
+				String
+				</td><td><span>
+<p>
+  UTC time when this Tweet was created.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>favoriteCount</td><td>
+				int
+				</td><td><span>
+<p>
+  Indicates approximately how many times this Tweet has been &quot;favorited&quot; by 
+  Twitter users.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>favorited</td><td>
+				boolean
+				</td><td><span>
+<p>
+  Nullable. Perspectival. Indicates whether this Tweet has been favorited by 
+  the authenticating user.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>filterLevel</td><td>
+				String
+				</td><td><span>
+<p>
+  Indicates the maximum value of the filterLevel parameter which may be used 
+  and still stream this Tweet. So a value of medium will be streamed on none, 
+  low, and medium streams.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>geo</td><td>
+				String
+				</td><td><span>
+<p>
+  Deprecated. Nullable. Use the &quot;coordinates&quot; field instead.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>id</td><td>
+				int
+				</td><td><span>
+<p>
+  The integer representation of the unique identifier for this Tweet. This 
+  number is greater than 53 bits and some programming languages may have 
+  difficulty/silent defects in interpreting it. Using a signed 64 bit integer 
+  for storing this identifier is safe. Use idStr for fetching the identifier 
+  to stay on the safe side. See Twitter IDs, JSON and Snowflake.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>idStr</td><td>
+				String
+				</td><td><span>
+<p>
+  The string representation of the unique identifier for this Tweet. 
+  Implementations should use this rather than the large integer in id.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>inReplyToScreenName</td><td>
+				String
+				</td><td><span>
+<p>
+  Nullable. If the represented Tweet is a reply, this field will contain the 
+  screen name of the original Tweet's author.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>inReplyToStatusId</td><td>
+				int
+				</td><td><span>
+<p>
+  Nullable. If the represented Tweet is a reply, this field will contain the 
+  integer representation of the original Tweet's ID.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>inReplyToStatusIdStr</td><td>
+				String
+				</td><td><span>
+<p>
+  Nullable. If the represented Tweet is a reply, this field will contain the 
+  string representation of the original Tweet's ID.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>inReplyToUserId</td><td>
+				int
+				</td><td><span>
+<p>
+  Nullable. If the represented Tweet is a reply, this field will contain the 
+  integer representation of the original Tweet's author ID. This will not 
+  necessarily always be the user directly mentioned in the Tweet.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>inReplyToUserIdStr</td><td>
+				String
+				</td><td><span>
+<p>
+  Nullable. If the represented Tweet is a reply, this field will contain the 
+  string representation of the original Tweet's author ID. This will not 
+  necessarily always be the user directly mentioned in the Tweet.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>lang</td><td>
+				String
+				</td><td><span>
+<p>
+  When present, indicates a BCP 47 language identifier corresponding to the 
+  machine-detected language of the Tweet text, or &quot;und&quot; if no language could 
+  be detected.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>retweetCount</td><td>
+				int
+				</td><td><span>
+<p>
+  Number of times this Tweet has been retweeted. This field is no longer 
+  capped at 99 and will not turn into a String for &quot;100+&quot;
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>retweeted</td><td>
+				boolean
+				</td><td><span>
+<p>
+  Perspectival. Indicates whether this Tweet has been retweeted by the 
+  authenticating user.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>source</td><td>
+				String
+				</td><td><span>
+<p>
+  Utility used to post the Tweet, as an HTML-formatted string. Tweets from the 
+  Twitter website have a source value of web.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>text</td><td>
+				String
+				</td><td><span>
+<p>
+  The actual UTF-8 text of the status update. See twitter-text for details on 
+  what is currently considered valid characters.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>truncated</td><td>
+				boolean
+				</td><td><span>
+<p>
+  Indicates whether the value of the text parameter was truncated, for 
+  example, as a result of a retweet exceeding the 140 character Tweet length. 
+  Truncated text will end in ellipsis, like this ... Since Twitter now rejects 
+  long Tweets vs truncating them, the large majority of Tweets will have this 
+  set to false.
+</p>
+<p>
+  Note that while native retweets may have their toplevel text property 
+  shortened, the original text will be available under the retweetedStatus 
+  object and the truncated parameter will be set to the value of the original 
+  status (in most cases, false).
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>possiblySensitive</td><td>
+				boolean
+				</td><td><span>
+<p>
+  This field only surfaces when a tweet contains a link. The meaning of the 
+  field doesn't pertain to the tweet content itself, but instead it is an 
+  indicator that the URL contained in the tweet may contain content or media 
+  identified as sensitive content.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>withheldCopyright</td><td>
+				boolean
+				</td><td><span>
+<p>
+  When present and set to &quot;true&quot;, it indicates that this piece of content has 
+  been withheld due to a DMCA complaint.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>withheldInCountries</td><td>
+				String[]
+				</td><td><span>
+<p>
+  When present, indicates a list of uppercase two-letter country codes this 
+  content is withheld from. Twitter supports the following non-country values 
+  for this field:
+</p>
+<p>
+  &quot;XX&quot; - Content is withheld in all countries
+</p>
+<p>
+  &quot;XY&quot; - Content is withheld due to a DMCA request.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>withheldScope</td><td>
+				String
+				</td><td><span>
+<p>
+  When present, indicates whether the content being withheld is the &quot;status&quot; 
+  or a &quot;user&quot;.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>entities</td><td>
+				<a href="#Entities">Entities</a>
+				</td><td><span>
+<p>
+  Entities which have been parsed out of the text of the Tweet.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>user</td><td>
+				<a href="#User">User</a>
+				</td><td><span>
+<p>
+  The user who posted this Tweet. Perspectival attributes embedded within this 
+  object are unreliable.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>coordinates</td><td>
+				<a href="#Coordinates">Coordinates</a>
+				</td><td><span>
+<p>
+  Represents the geographic location of this Tweet as reported by the user or 
+  client application.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>places</td><td>
+				<a href="#Place">Place[]</a>
+				</td><td><span>
+<p>
+  When present, indicates that the tweet is associated (but not necessarily 
+  originating from) a Place.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>contributors</td><td>
+				<a href="#Contributor">Contributor[]</a>
+				</td><td><span>
+<p>
+  An collection of brief user objects (usually only one) indicating users who 
+  contributed to the authorship of the tweet, on behalf of the official tweet 
+  author.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+				<header class="section">Related classes</header>
+		<a name="Entities"></a>
+<div class="classname">
+	Entities
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>hashtags</td><td>
+				<a href="#Hashtag">Hashtag[]</a>
+				</td><td><span>
+<p>
+  An array of hashtags extracted from the Tweet text.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>urls</td><td>
+				<a href="#URLS">URLS</a>
+				</td><td><span>
+<p>
+  Represents URLs included in the text of a Tweet or within textual fields of 
+  a user object.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>userMentions</td><td>
+				<a href="#UserMention">UserMention[]</a>
+				</td><td><span>
+<p>
+  Represents other Twitter users mentioned in the text of the Tweet.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>medias</td><td>
+				<a href="#Media">Media[]</a>
+				</td><td></td>
+		</tr>
+				<tr>
+		<td>symbols</td><td>
+				<a href="#Symbol">Symbol[]</a>
+				</td><td><span>
+<p>
+  An array of financial symbols starting with the dollar sign extracted from 
+  the Tweet text.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Hashtag"></a>
+<div class="classname">
+	Hashtag
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>indices</td><td>
+				int[]
+				</td><td><span>
+<p>
+  An array of integers indicating the offsets within the Tweet text where the 
+  hashtag begins and ends. The first integer represents the location of the # 
+  character in the Tweet text string. The second integer represents the 
+  location of the first character after the hashtag. Therefore the difference 
+  between the two numbers will be the length of the hashtag name plus one (for 
+  the '#' character).
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>text</td><td>
+				String
+				</td><td><span>
+<p>
+  Name of the hashtag, minus the leading '#' character.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="URLS"></a>
+<div class="classname">
+	URLS
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>expandedUrl</td><td>
+				String
+				</td><td><span>
+<p>
+  An expanded version of display_url. Links to the media display page.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>url</td><td>
+				String
+				</td><td><span>
+<p>
+  Wrapped URL for the media link. This corresponds with the URL embedded 
+  directly into the raw Tweet text, and the values for the indices parameter.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>indices</td><td>
+				int[]
+				</td><td><span>
+<p>
+  An array of integers indicating the offsets within the Tweet text where the 
+  URL begins and ends. The first integer represents the location of the first 
+  character of the URL in the Tweet text. The second integer represents the 
+  location of the first non-URL character occurring after the URL (or the end 
+  of the string if the URL is the last part of the Tweet text).
+</p>
+<p>
+  Example:
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>displayUrl</td><td>
+				String
+				</td><td><span>
+<p>
+  URL of the media to display to clients.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="URL"></a>
+<div class="classname">
+	URL
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>urls</td><td>
+				<a href="#URLS">URLS[]</a>
+				</td><td><span>
+<p>
+  Represents URLs included in the text of a Tweet or within textual fields of 
+  a user object.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="UserEntities"></a>
+<div class="classname">
+	UserEntities
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>url</td><td>
+				<a href="#URL">URL</a>
+				</td><td><span>
+<p>
+  User defined profile URL field.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>description</td><td>
+				<a href="#Description">Description</a>
+				</td><td><span>
+<p>
+  User defined profile description field.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="User"></a>
+<div class="classname">
+	User
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>contributorsEnabled</td><td>
+				boolean
+				</td><td><span>
+<p>
+  Indicates that the user has an account with &quot;contributor mode&quot; enabled, 
+  allowing for Tweets issued by the user to be co-authored by another account. 
+  Rarely true.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>createdAt</td><td>
+				String
+				</td><td><span>
+<p>
+  The UTC datetime that the user account was created on Twitter
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>defaultProfile</td><td>
+				boolean
+				</td><td><span>
+<p>
+  When true, indicates that the user has not altered the theme or background 
+  of their user profile.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>defaultProfileImage</td><td>
+				boolean
+				</td><td><span>
+<p>
+  When true, indicates that the user has not uploaded their own avatar and a 
+  default egg avatar is used instead.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>description</td><td>
+				String
+				</td><td><span>
+<p>
+  Nullable. The user-defined UTF-8 string describing their account.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>favouritesCount</td><td>
+				int
+				</td><td><span>
+<p>
+  The number of tweets this user has favorited in the account's lifetime. 
+  British spelling used in the field name for historical reasons.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>followRequestSent</td><td>
+				boolean
+				</td><td><span>
+<p>
+  Nullable. Perspectival. When true, indicates that the authenticating user 
+  has issued a follow request to this protected user account.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>followersCount</td><td>
+				int
+				</td><td><span>
+<p>
+  The number of followers this account currently has. Under certain conditions 
+  of duress, this field will temporarily indicate &quot;0&quot;.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>following</td><td>
+				boolean
+				</td><td><span>
+<p>
+  Nullable. Perspectival. Deprecated. When true, indicates that the 
+  authenticating user is following this user. Some false negatives are 
+  possible when set to &quot;false&quot;, but these false negatives are increasingly 
+  being represented as &quot;null&quot; instead.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>friendsCount</td><td>
+				int
+				</td><td><span>
+<p>
+  The number of users this account is following (AKA their &quot;followings&quot;). 
+  Under certain conditions of duress, this field will temporarily indicate &quot;0&quot;.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>geoEnabled</td><td>
+				boolean
+				</td><td><span>
+<p>
+  When true, indicates that the user has enabled the possibility of geotagging 
+  their Tweets. This field must be true for the current user to attach 
+  geographic data when using POST statuses / update.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>id</td><td>
+				int
+				</td><td><span>
+<p>
+  The integer representation of the unique identifier for this User. This 
+  number is greater than 53 bits and some programming languages may have 
+  difficulty/silent defects in interpreting it. Using a signed 64 bit integer 
+  for storing this identifier is safe. Use id_str for fetching the identifier 
+  to stay on the safe side.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>idStr</td><td>
+				String
+				</td><td><span>
+<p>
+  The string representation of the unique identifier for this User. 
+  Implementations should use this rather than the large, possibly 
+  un-consumable integer in id.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>isTranslator</td><td>
+				boolean
+				</td><td><span>
+<p>
+  When true, indicates that the user is a participant in Twitter's translator 
+  community.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>lang</td><td>
+				String
+				</td><td><span>
+<p>
+  The BCP 47 code for the user's self-declared user interface language. May or 
+  may not have anything to do with the content of their Tweets.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>listedCount</td><td>
+				int
+				</td><td><span>
+<p>
+  The number of public lists that this user is a member of.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>location</td><td>
+				String
+				</td><td><span>
+<p>
+  Nullable. The user-defined location for this account's profile. Not 
+  necessarily a location nor parseable. This field will occasionally be 
+  fuzzily interpreted by the Search service.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>name</td><td>
+				String
+				</td><td><span>
+<p>
+  The name of the user, as they've defined it. Not necessarily a person's 
+  name. Typically capped at 20 characters, but subject to change.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>notifications</td><td>
+				boolean
+				</td><td><span>
+<p>
+  The name of the user, as they've defined it. Not necessarily a person's 
+  name. TypicalNullable. Deprecated. May incorrectly report &quot;false&quot; at times. 
+  Indicates whether the authenticated user has chosen to receive this user's 
+  tweets by SMS.y capped at 20 characters, but subject to change.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>profileBackgroundColor</td><td>
+				String
+				</td><td><span>
+<p>
+  The hexadecimal color chosen by the user for their background.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>profileBackgroundImageUrl</td><td>
+				String
+				</td><td><span>
+<p>
+  A HTTP-based URL pointing to the background image the user has uploaded for 
+  their profile.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>profileBackgroundImageUrl_https</td><td>
+				String
+				</td><td><span>
+<p>
+  A HTTPS-based URL pointing to the background image the user has uploaded for 
+  their profile.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>profileBackgroundTile</td><td>
+				boolean
+				</td><td><span>
+<p>
+  When true, indicates that the user's profile_background_image_url should be 
+  tiled when displayed.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>profileImageUrl</td><td>
+				String
+				</td><td><span>
+<p>
+  A HTTP-based URL pointing to the user's avatar image.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>profileImageUrlHttps</td><td>
+				String
+				</td><td><span>
+<p>
+  A HTTPS-based URL pointing to the user's avatar image.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>profileLinkColor</td><td>
+				String
+				</td><td><span>
+<p>
+  The hexadecimal color the user has chosen to display links with in their 
+  Twitter UI.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>profileSidebarBorderColor</td><td>
+				String
+				</td><td><span>
+<p>
+  The hexadecimal color the user has chosen to display sidebar borders with in 
+  their Twitter UI.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>profileSidebarFillColor</td><td>
+				String
+				</td><td><span>
+<p>
+  The hexadecimal color the user has chosen to display sidebar backgrounds 
+  with in their Twitter UI.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>profileTextColor</td><td>
+				String
+				</td><td><span>
+<p>
+  The hexadecimal color the user has chosen to display text with in their 
+  Twitter UI.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>profileUseBackgroundImage</td><td>
+				boolean
+				</td><td><span>
+<p>
+  When true, indicates the user wants their uploaded background image to be 
+  used.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>protected</td><td>
+				boolean
+				</td><td><span>
+<p>
+  When true, indicates that this user has chosen to protect their Tweets.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>screenName</td><td>
+				String
+				</td><td><span>
+<p>
+  The screen name, handle, or alias that this user identifies themselves with. 
+  screen_names are unique but subject to change. Use id_str as a user 
+  identifier whenever possible. Typically a maximum of 15 characters long, but 
+  some historical accounts may exist with longer names.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>showAllInlineMedia</td><td>
+				boolean
+				</td><td><span>
+<p>
+  Indicates that the user would like to see media inline. Somewhat disused.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>statusCount</td><td>
+				int
+				</td><td><span>
+<p>
+  The number of tweets (including retweets) issued by the user.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>timeZone</td><td>
+				String
+				</td><td><span>
+<p>
+  Nullable. A string describing the Time Zone this user declares themselves 
+  within.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>url</td><td>
+				String
+				</td><td><span>
+<p>
+  Nullable. A URL provided by the user in association with their profile.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>utcOffset</td><td>
+				int
+				</td><td><span>
+<p>
+  Nullable. The offset from GMT/UTC in seconds.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>verified</td><td>
+				boolean
+				</td><td><span>
+<p>
+  When true, indicates that the user has a verified account.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>withheldInCountries</td><td>
+				String
+				</td><td><span>
+<p>
+  When present, indicates a textual representation of the two-letter country 
+  codes this user is withheld from.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>withheldScope</td><td>
+				String
+				</td><td><span>
+<p>
+  When present, indicates whether the content being withheld is the &quot;status&quot; 
+  or a &quot;user&quot;.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>userEntities</td><td>
+				<a href="#UserEntities">UserEntities</a>
+				</td><td><span>
+<p>
+  Entities which have been parsed out of the url or description fields defined 
+  by the user.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Description"></a>
+<div class="classname">
+	Description
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>urls</td><td>
+				<a href="#URLS">URLS[]</a>
+				</td><td><span>
+<p>
+  Represents URLs included in the text of a Tweet or within textual fields of 
+  a user object.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="UserMention"></a>
+<div class="classname">
+	UserMention
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>id</td><td>
+				int
+				</td><td><span>
+<p>
+  ID of the mentioned user, as an integer.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>id_str</td><td>
+				String
+				</td><td><span>
+<p>
+  If of the mentioned user, as a string.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>screenName</td><td>
+				String
+				</td><td><span>
+<p>
+  Screen name of the referenced user.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>name</td><td>
+				String
+				</td><td><span>
+<p>
+  Display name of the referenced user.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>indices</td><td>
+				int[]
+				</td><td><span>
+<p>
+  An array of integers representing the offsets within the Tweet text where 
+  the user reference begins and ends. The first integer represents the 
+  location of the '@' character of the user mention. The second integer 
+  represents the location of the first non-screenname character following the 
+  user mention.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Media"></a>
+<div class="classname">
+	Media
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>id</td><td>
+				int
+				</td><td><span>
+<p>
+  ID of the media expressed as a 64-bit integer.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>idStr</td><td>
+				String
+				</td><td><span>
+<p>
+  ID of the media expressed as a string.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>mediaUrl</td><td>
+				String
+				</td><td><span>
+<p>
+  An http:// URL pointing directly to the uploaded media file.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>mediaUrlHttps</td><td>
+				String
+				</td><td><span>
+<p>
+  An https:// URL pointing directly to the uploaded media file, for embedding 
+  on https pages.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>url</td><td>
+				String
+				</td><td><span>
+<p>
+  Wrapped URL for the media link. This corresponds with the URL embedded 
+  directly into the raw Tweet text, and the values for the indices parameter.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>displayUrl</td><td>
+				String
+				</td><td><span>
+<p>
+  URL of the media to display to clients.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>expandedUrl</td><td>
+				String
+				</td><td><span>
+<p>
+  An expanded version of display_url. Links to the media display page.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>sourceStatusId</td><td>
+				int
+				</td><td><span>
+<p>
+  For Tweets containing media that was originally associated with a different 
+  tweet, this ID points to the original Tweet.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>sourceStatusIdStr</td><td>
+				int
+				</td><td><span>
+<p>
+  For Tweets containing media that was originally associated with a different 
+  tweet, this string-based ID points to the original Tweet.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>type</td><td>
+				String
+				</td><td><span>
+<p>
+  Type of uploaded media.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>indices</td><td>
+				int[]
+				</td><td><span>
+<p>
+  An array of integers indicating the offsets within the Tweet text where the 
+  URL begins and ends. The first integer represents the location of the first 
+  character of the URL in the Tweet text. The second integer represents the 
+  location of the first non-URL character occurring after the URL (or the end 
+  of the string if the URL is the last part of the Tweet text).
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>sizes</td><td>
+				<a href="#Size">Size[]</a>
+				</td><td><span>
+<p>
+  An object showing available sizes for the media file.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Size"></a>
+<div class="classname">
+	Size
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>medium</td><td>
+				<a href="#Medium">Medium</a>
+				</td><td><span>
+<p>
+  Information for a medium-sized version of the media.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>thumb</td><td>
+				<a href="#Thumb">Thumb</a>
+				</td><td><span>
+<p>
+  Information for a thumbnail-sized version of the media.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>small</td><td>
+				<a href="#Small">Small</a>
+				</td><td><span>
+<p>
+  Information for a small-sized version of the media.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>large</td><td>
+				<a href="#Large">Large</a>
+				</td><td><span>
+<p>
+  Information for a large-sized version of the media.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Medium"></a>
+<div class="classname">
+	Medium
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>w</td><td>
+				int
+				</td><td><span>
+<p>
+  Width in pixels of this size.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>h</td><td>
+				int
+				</td><td><span>
+<p>
+  Height in pixels of this size.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>resize</td><td>
+				String
+				</td><td><span>
+<p>
+  Resizing method used to obtain this size. A value of fit means that the 
+  media was resized to fit one dimension, keeping its native aspect ratio. A 
+  value of crop means that the media was cropped in order to fit a specific 
+  resolution.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Thumb"></a>
+<div class="classname">
+	Thumb
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>w</td><td>
+				int
+				</td><td><span>
+<p>
+  Width in pixels of this size.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>h</td><td>
+				int
+				</td><td><span>
+<p>
+  Height in pixels of this size.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>resize</td><td>
+				String
+				</td><td><span>
+<p>
+  Resizing method used to obtain this size. A value of fit means that the 
+  media was resized to fit one dimension, keeping its native aspect ratio. A 
+  value of crop means that the media was cropped in order to fit a specific 
+  resolution.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Small"></a>
+<div class="classname">
+	Small
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>w</td><td>
+				int
+				</td><td><span>
+<p>
+  Width in pixels of this size.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>h</td><td>
+				int
+				</td><td><span>
+<p>
+  Height in pixels of this size.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>resize</td><td>
+				String
+				</td><td><span>
+<p>
+  Resizing method used to obtain this size. A value of fit means that the 
+  media was resized to fit one dimension, keeping its native aspect ratio. A 
+  value of crop means that the media was cropped in order to fit a specific 
+  resolution.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Large"></a>
+<div class="classname">
+	Large
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>w</td><td>
+				int
+				</td><td><span>
+<p>
+  Width in pixels of this size.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>h</td><td>
+				int
+				</td><td><span>
+<p>
+  Height in pixels of this size.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>resize</td><td>
+				String
+				</td><td><span>
+<p>
+  Resizing method used to obtain this size. A value of fit means that the 
+  media was resized to fit one dimension, keeping its native aspect ratio. A 
+  value of crop means that the media was cropped in order to fit a specific 
+  resolution.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Symbol"></a>
+<div class="classname">
+	Symbol
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>text</td><td>
+				String
+				</td><td><span>
+<p>
+  The symbol text
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>indices</td><td>
+				int[]
+				</td><td><span>
+<p>
+  The character positions the symbol was extracted from
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Coordinates"></a>
+<div class="classname">
+	Coordinates
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>coordinates</td><td>
+				float[]
+				</td><td><span>
+<p>
+  The longitude and latitude of the Tweet's location, as an collection in the 
+  form of [longitude, latitude].
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>type</td><td>
+				String
+				</td><td><span>
+<p>
+  The type of data encoded in the coordinates property. This will be &quot;Point&quot; 
+  for Tweet coordinates fields.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Place"></a>
+<div class="classname">
+	Place
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>country</td><td>
+				String
+				</td><td><span>
+<p>
+  Name of the country containing this place.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>countryCode</td><td>
+				String
+				</td><td><span>
+<p>
+  Shortened country code representing the country containing this place.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>fullName</td><td>
+				String
+				</td><td><span>
+<p>
+  Full human-readable representation of the place's name.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>id</td><td>
+				String
+				</td><td><span>
+<p>
+  ID representing this place. Note that this is represented as a string, not 
+  an integer.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>name</td><td>
+				String
+				</td><td><span>
+<p>
+  Short human-readable representation of the place's name.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>placeType</td><td>
+				String
+				</td><td><span>
+<p>
+  The type of location represented by this place.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>url</td><td>
+				String
+				</td><td><span>
+<p>
+  URL representing the location of additional place metadata for this place.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>boundingBox</td><td>
+				<a href="#BoundingBox">BoundingBox</a>
+				</td><td><span>
+<p>
+  A bounding box of coordinates which encloses this place.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>attributes</td><td>
+				<a href="#Attributes">Attributes</a>
+				</td><td><span>
+<p>
+  Contains a hash of variant information about the place.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="BoundingBox"></a>
+<div class="classname">
+	BoundingBox
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>coordinates</td><td>
+				float[][]
+				</td><td><span>
+<p>
+  A series of longitude and latitude points, defining a box which will contain 
+  the Place entity this bounding box is related to. Each point is an array in 
+  the form of [longitude, latitude]. Points are grouped into an array per 
+  bounding box. Bounding box arrays are wrapped in one additional array to be 
+  compatible with the polygon notation.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>type</td><td>
+				String
+				</td><td><span>
+<p>
+  The type of data encoded in the coordinates property. This will be &quot;Polygon&quot; 
+  for bounding boxes.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Attributes"></a>
+<div class="classname">
+	Attributes
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>streetAddress</td><td>
+				String
+				</td><td><span>
+<p>
+  the street address.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>locality</td><td>
+				String
+				</td><td><span>
+<p>
+  the city the place is in
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>region</td><td>
+				String
+				</td><td><span>
+<p>
+  the administrative region the place is in
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>iso3</td><td>
+				String
+				</td><td><span>
+<p>
+  the country code
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>postalCode</td><td>
+				String
+				</td><td><span>
+<p>
+  in the preferred local format for the place
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>phone</td><td>
+				String
+				</td><td><span>
+<p>
+  in the preferred local format for the place, include long distance code
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>twitter</td><td>
+				String
+				</td><td><span>
+<p>
+  twitter screen-name, without @
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>url</td><td>
+				String
+				</td><td><span>
+<p>
+  official/canonical URL for place
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>id</td><td>
+				int
+				</td><td><span>
+<p>
+  An ID or comma separated list of IDs representing the place in the 
+  applications place database.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+			<a name="Contributor"></a>
+<div class="classname">
+	Contributor
+	</div>
+<div class="attributes">
+	<table>
+		<tr><th>Name</th><th>Type</th><th>Description</th></tr>
+				<tr>
+		<td>id</td><td>
+				int
+				</td><td><span>
+<p>
+  The integer representation of the ID of the user who contributed to this 
+  Tweet.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>idStr</td><td>
+				String
+				</td><td><span>
+<p>
+  The string representation of the ID of the user who contributed to this 
+  Tweet.
+</p>
+</span>
+</td>
+		</tr>
+				<tr>
+		<td>screeName</td><td>
+				String
+				</td><td><span>
+<p>
+  The screen name of the user who contributed to this Tweet.
+</p>
+</span>
+</td>
+		</tr>
+			</table>
+</div>
+															</div>
+
+				<div class="sidebar">
+										<div class="code-block">
+						<header>Response Header</header>
+						<a class="copy" href="javascript:copyToClipboard('response-header')"></a>
+						<code id='response-header' class="header">content-type: application/json; charset=utf-8
+status: 200 OK
+ratelimit-limit: 1200
+ratelimit-remaining: 1137
+ratelimit-reset: 1415984218
+</code>
+					</div>
+					
+										<div class="code-block">
+						<header>Response Body</header>
+						<a class="copy" href="javascript:copyToClipboard('response-body')"></a>
+						<code id='response-body' class="json">{
+  <span class="key">"coordinates"</span>: <span class="value">null</span>,
+  <span class="key">"favorited"</span>: <span class="value">false</span>,
+  <span class="key">"created_at"</span>: <span class="value">"Wed Sep 05 00:37:15 +0000 2012"</span>,
+  <span class="key">"truncated"</span>: <span class="value">false</span>,
+  <span class="key">"id_str"</span>: <span class="value">"243145735212777472"</span>,
+  <span class="key">"entities"</span>: {
+    <span class="key">"urls"</span>: [
+      
+    ],
+    <span class="key">"hashtags"</span>: [
+      {
+        <span class="key">"text"</span>: <span class="value">"peterfalk"</span>,
+        <span class="key">"indices"</span>: [
+          <span class="value">35</span>,
+          <span class="value">45</span>
+        ]
+      }
+    ],
+    <span class="key">"user_mentions"</span>: [
+      
+    ]
+  },
+  <span class="key">"in_reply_to_user_id_str"</span>: <span class="value">null</span>,
+  <span class="key">"text"</span>: <span class="value">"Maybe he'll finally find his keys. #peterfalk"</span>,
+  <span class="key">"contributors"</span>: <span class="value">null</span>,
+  <span class="key">"retweet_count"</span>: <span class="value">0</span>,
+  <span class="key">"id"</span>: <span class="value">243145735212777472</span>,
+  <span class="key">"in_reply_to_status_id_str"</span>: <span class="value">null</span>,
+  <span class="key">"geo"</span>: <span class="value">null</span>,
+  <span class="key">"retweeted"</span>: <span class="value">false</span>,
+  <span class="key">"in_reply_to_user_id"</span>: <span class="value">null</span>,
+  <span class="key">"place"</span>: <span class="value">null</span>,
+  <span class="key">"user"</span>: {
+    <span class="key">"name"</span>: <span class="value">"Jason Costa"</span>,
+    <span class="key">"profile_sidebar_border_color"</span>: <span class="value">"86A4A6"</span>,
+    <span class="key">"profile_sidebar_fill_color"</span>: <span class="value">"A0C5C7"</span>,
+    <span class="key">"profile_background_tile"</span>: <span class="value">false</span>,
+    <span class="key">"profile_image_url"</span>: <span class="value">"http://a0.twimg.com/profile_images/1751674923/new_york_beard_normal.jpg"</span>,
+    <span class="key">"created_at"</span>: <span class="value">"Wed May 28 00:20:15 +0000 2008"</span>,
+    <span class="key">"location"</span>: "",
+    <span class="key">"is_translator"</span>: <span class="value">true</span>,
+    <span class="key">"follow_request_sent"</span>: <span class="value">false</span>,
+    <span class="key">"id_str"</span>: <span class="value">"14927800"</span>,
+    <span class="key">"profile_link_color"</span>: <span class="value">"FF3300"</span>,
+    <span class="key">"entities"</span>: {
+      <span class="key">"url"</span>: {
+        <span class="key">"urls"</span>: [
+          {
+            <span class="key">"expanded_url"</span>: <span class="value">"http://www.jason-costa.blogspot.com/"</span>,
+            <span class="key">"url"</span>: <span class="value">"http://t.co/YCA3ZKY"</span>,
+            <span class="key">"indices"</span>: [
+              <span class="value">0</span>,
+              <span class="value">19</span>
+            ],
+            <span class="key">"display_url"</span>: <span class="value">"jason-costa.blogspot.com"</span>
+          }
+        ]
+      },
+      <span class="key">"description"</span>: {
+        <span class="key">"urls"</span>: [
+          
+        ]
+      }
+    },
+    <span class="key">"default_profile"</span>: <span class="value">false</span>,
+    <span class="key">"contributors_enabled"</span>: <span class="value">false</span>,
+    <span class="key">"url"</span>: <span class="value">"http://t.co/YCA3ZKY"</span>,
+    <span class="key">"favourites_count"</span>: <span class="value">883</span>,
+    <span class="key">"utc_offset"</span>: <span class="value">-28800</span>,
+    <span class="key">"id"</span>: <span class="value">14927800</span>,
+    <span class="key">"profile_image_url_https"</span>: <span class="value">"https://si0.twimg.com/profile_images/1751674923/new_york_beard_normal.jpg"</span>,
+    <span class="key">"profile_use_background_image"</span>: <span class="value">true</span>,
+    <span class="key">"listed_count"</span>: <span class="value">150</span>,
+    <span class="key">"profile_text_color"</span>: <span class="value">"333333"</span>,
+    <span class="key">"protected"</span>: <span class="value">false</span>,
+    <span class="key">"lang"</span>: <span class="value">"en"</span>,
+    <span class="key">"followers_count"</span>: <span class="value">8760</span>,
+    <span class="key">"time_zone"</span>: <span class="value">"Pacific Time (US &amp; Canada)"</span>,
+    <span class="key">"profile_background_image_url_https"</span>: <span class="value">"https://si0.twimg.com/images/themes/theme6/bg.gif"</span>,
+    <span class="key">"verified"</span>: <span class="value">false</span>,
+    <span class="key">"profile_background_color"</span>: <span class="value">"709397"</span>,
+    <span class="key">"notifications"</span>: <span class="value">false</span>,
+    <span class="key">"description"</span>: <span class="value">"Platform at Twitter"</span>,
+    <span class="key">"geo_enabled"</span>: <span class="value">true</span>,
+    <span class="key">"statuses_count"</span>: <span class="value">5532</span>,
+    <span class="key">"default_profile_image"</span>: <span class="value">false</span>,
+    <span class="key">"friends_count"</span>: <span class="value">166</span>,
+    <span class="key">"profile_background_image_url"</span>: <span class="value">"http://a0.twimg.com/images/themes/theme6/bg.gif"</span>,
+    <span class="key">"show_all_inline_media"</span>: <span class="value">true</span>,
+    <span class="key">"screen_name"</span>: <span class="value">"jasoncosta"</span>,
+    <span class="key">"following"</span>: <span class="value">false</span>
+  },
+  <span class="key">"source"</span>: <span class="value">null</span>,
+  <span class="key">"in_reply_to_screen_name"</span>: <span class="value">null</span>,
+  <span class="key">"in_reply_to_status_id"</span>: <span class="value">null</span>
+}</code>
+					</div>
+									</div>
+
+				<div class="content" style="clear:both">
+					<footer class="download">For client development, you can download <a href="xml/Tweeting.xml" target="_blank">Tweeting.xml</a></footer>
+					<footer class="powered-by"><a href="http://www.visual-paradigm.com" target="_blank">Powered by Visual Paradigm</a></footer>
+				</div>
+
+				<div style="clear:both"></div>
+		</div>
+	</div>
+</body>
+</html>
